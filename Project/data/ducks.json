@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "price": 30,
+      "race": "American Pekin",
+      "quantity": 5,
+      "image": "https://morningchores.com/wp-content/uploads/2020/05/Pekin-Duck-America%E2%80%99s-Most-Popular-Dual-Purpose-Breed-FB.jpg"
+    },
+    {
+      "id": 1,
+      "price": 30,
+      "race": "American Pekin",
+      "quantity": 5,
+      "image": "Pekin-Duck-America’s-Most-Popular-Dual-Purpose-Breed-FB.jpg"
+    },
+    {
+      "id": 2,
+      "price": 30,
+      "race": "Mallard",
+      "quantity": 5,
+      "image": "https://images.birdfact.com/production/mallard-diet.jpg?w=1200&h=900&q=80&fm=webp&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1673007390&s=77210c9c0399a9a34fe8c6bef4e6900a"
+    },
+    {
+      "id": 3,
+      "price": 30,
+      "race": "Rouen",
+      "quantity": 5,
+      "image": "https://cdn.shopify.com/s/files/1/0601/9550/4282/products/rouen-duck-mpc_1.jpg?v=1680721970"
+    },
+    {
+      "id": 4,
+      "price": 30,
+      "race": "Campbell",
+      "quantity": 5,
+      "image": "https://cdn.shopify.com/s/files/1/0601/9550/4282/products/khaki-campbell-duck.jpg?v=1668801418"
+    },
+    {
+      "id": 5,
+      "price": 30,
+      "race": "Cayuga",
+      "quantity": 5,
+      "image": "https://thepeasantsdaughter.net/wp-content/uploads/2022/09/cayuga-duck-breed-drake-080224.jpg"
+    },
+    {
+      "id": 6,
+      "price": 30,
+      "race": "Shetland",
+      "quantity": 5,
+      "image": "https://i.pinimg.com/originals/f7/20/4a/f7204aa5e8b507b514c9a31855ddc474.jpg"
+    }
+]
