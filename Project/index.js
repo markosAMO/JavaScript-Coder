@@ -1,8 +1,16 @@
 contentContainer = document.getElementById('content-container')
 const homeButton = document.getElementById('show-ducks');
 const cartProductsButton = document.getElementById('show-cart-products');
-file = '../data/ducks.json';
-
+file = 'https://raw.githubusercontent.com/markosAMO/JavaScript-Coder/main/Project/data/ducks.json';
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-end',
+    showConfirmButton: false,
+    width: 300,
+    color: 'whitesmoke',
+    timer: 2000,
+    timerProgressBar: true,
+});
 //Sessions -> not in use
 class User{
     constructor(username){
@@ -16,9 +24,7 @@ class DuckService{
         this.ducks = [];
     }
     addDuck(duck){
-        console.log("the duck: ", duck);
         const duck_with_that_race = this.getDuckByRace(duck.race);
-        console.log("racedDuck: ",duck_with_that_race);
         if(duck_with_that_race){
             //actualiza la cantidad de patos que hay con esa raza a la venta
             duck_with_that_race.updateQuantity(duck.quantity);
@@ -141,6 +147,7 @@ function showProducts() {
     let rowBreak = 0;
     let column = document.createElement('div');
     column.classList.add('columns');
+    console.log(duckService.getAllDucks())
     duckService.getAllDucks().forEach((duck) => {
         rowBreak++;
         if(rowBreak==6){
@@ -216,7 +223,13 @@ function showCartPorducts(){
 }
 
 function payment(){
-    alert('your payment was successful');
+    Swal.fire({
+        icon: 'success',
+        title: 'Successfull payment',
+        text: 'thanks for buying a duck',
+        timerProgressBar: true,
+        timer: 3000,
+    });
     for(item of cart.getItems()){
          console.log("the id is: ", item.id);
         duckService.updateQuantity(item.id, -item.quantity);
@@ -227,6 +240,11 @@ function payment(){
 function deleteItemFromCart(e){
     e.preventDefault();
     if (e.target.classList.contains('deleteFromCart')) {
+        Toast.fire({
+            icon: 'error',
+            title: 'duck deleated',
+            background: '#8B0000',
+        });
         const duckSelected = e.target.parentElement;
         duckId = parseInt(duckSelected.querySelector('a').getAttribute('id'));
         cartDuck = cart.getDuckById(duckId);
@@ -239,14 +257,32 @@ function deleteItemFromCart(e){
 }
 
 function emptyCartEvent(){
-    cart.emptyCart();
-    localStorage.setItem('cart', objectString);
-    storeCart();
+    Swal.fire({
+        title: 'Limpiar carrito',
+        text: 'This will delete all the ducks in your cart',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Continue',
+        cancelButtonText: 'Cancel',
+    }).then((btnResponse) => {
+        if (btnResponse.isConfirmed) {
+            cart.emptyCart();
+            localStorage.setItem('cart', JSON.stringify([]));
+            storeCart();
+            showCartPorducts();
+        }
+    });
+    
 }
 
 function addItemToCart(e){
-    e.preventDefault();
+    e.preventDefault(); 
     if (e.target.classList.contains('addToCart')) {
+        Toast.fire({
+            icon: 'success', // success
+            title: 'nice duck selection', // agregado
+            background: '#34b555', // #34b555
+        });
         const duckSelected = e.target.parentElement;
         duckId = parseInt(duckSelected.querySelector('a').getAttribute('id'));
         duck = duckService.getDuckById(duckId);
@@ -265,7 +301,6 @@ function storeCart(){
 
 async function fullDataItems(duckService, ducks){
     ducks.forEach(element => {
-        console.log(element)
         duckService.addDuck(new Duck(duck = {
             id: element.id,
             price: element.price,
@@ -286,13 +321,14 @@ async function getDucks(file){
         data = await response.json();
         return data;
     } catch(error){
-        console.log("we have a problem")   
+        console.log("we have a problem" + `${response.status}`)   
     }
 }
 
 async function loadDucks(duckService){
     const ducks = await getDucks(file);
     await fullDataItems(duckService, ducks);
+    showProducts();
 }
 
 duckService = new DuckService();
@@ -304,7 +340,7 @@ if(storedObjectString){
     cart = new shoppingCart();
 
 loadDucks(duckService);
-showProducts();
+
 
 
 cartProductsButton.addEventListener('click', showCartPorducts);
