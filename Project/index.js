@@ -9,7 +9,6 @@ const Toast = Swal.mixin({
     width: 300,
     color: 'whitesmoke',
     timer: 2000,
-    timerProgressBar: true,
 });
 //Sessions -> not in use
 class User{
